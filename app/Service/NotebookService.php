@@ -38,4 +38,9 @@ class NotebookService
     {
         return Notebook::findOrFail($id)->update($validated);
     }
+
+    public function destroyNotebook(mixed $id): bool
+    {
+        return Notebook::findOrFail($id)->delete();
+    }
 }

@@ -112,6 +112,35 @@ class NotebookTest extends TestCase
 
     }
 
+    /** @test */
+    public function a_can_be_auth_user_delete_notebook()
+    {
+        Notebook::factory()->create();
+        $user = $this->createUser();
+
+        $this->assertCount(1, Notebook::all());
+
+        $response = $this->actingAs($user)
+            ->json('delete', route('notebook.destroy', Notebook::first()->id))
+            ->assertOk();
+
+        $this->assertCount(0, Notebook::all());
+    }
+
+    /** @test */
+    public function a_can_be_non_auth_user_delete_notebook()
+    {
+        Notebook::factory()->create();
+        $user = $this->createUser();
+
+        $this->assertCount(1, Notebook::all());
+
+        $response = $this
+            ->json('delete', route('notebook.destroy', Notebook::first()->id))
+            ->assertStatus(401);
+
+        $this->assertCount(1, Notebook::all());
+    }
     private function createUser(): User
     {
         return User::factory()->create([

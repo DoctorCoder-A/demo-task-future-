@@ -35,5 +35,9 @@ class NotebookController extends Controller
     {
         return response()->json($this->service->updateNotebook($request->id, $request->validationData()));
     }
+    public function destroy(Request $request): JsonResponse
+    {
+        return response()->json($this->service->destroyNotebook($request->id));
+    }
 
 }

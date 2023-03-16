@@ -20,6 +20,6 @@ Route::get('notebook/{id}', [\App\Http\Controllers\NotebookController::class, 's
 Route::group(['middleware' => 'auth'], function () {
     Route::post('notebook', [\App\Http\Controllers\NotebookController::class, 'store'])
         ->name('notebook.store');
-    Route::post('notebook/update/{id}', [\App\Http\Controllers\NotebookController::class, 'update'])
+    Route::post('notebook/{id}', [\App\Http\Controllers\NotebookController::class, 'update'])
         ->name('notebook.update');
 });

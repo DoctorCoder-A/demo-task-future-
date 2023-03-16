@@ -24,7 +24,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('notebook', [\App\Http\Controllers\NotebookController::class, 'store'])
         ->name('notebook.store');
 
-    Route::post('notebook/{id}', [\App\Http\Controllers\NotebookController::class, 'update'])
+    Route::patch('notebook/{id}', [\App\Http\Controllers\NotebookController::class, 'update'])
         ->name('notebook.update');
 
     Route::delete('notebook1/{id}', [\App\Http\Controllers\NotebookController::class, 'destroy'])

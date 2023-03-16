@@ -94,7 +94,7 @@ class NotebookTest extends TestCase
     }
 
     /** @test */
-    public function a_can_user_update_notebook()
+    public function a_can_be_user_update_notebook()
     {
         Notebook::factory()->create();
         $notebook = Notebook::first();
@@ -103,9 +103,9 @@ class NotebookTest extends TestCase
             'email' => 'test@test.test',
             'company' => 'test-company'
         ];
-        $this->actingAs($user);
-        $response = $this->post(route('notebook.update', $notebook->id), $data);
-        $response->assertOk();
+        $this->actingAs($user)
+            ->json('patch', route('notebook.update', $notebook->id), $data)
+            ->assertOk();
 
         $this->assertEquals($data['email'], Notebook::first()->email);
         $this->assertEquals($data['company'], Notebook::first()->company);

@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\NotebookRequest;
+use App\Http\Requests\NotebookStoreRequest;
+use App\Http\Requests\NotebookUpdateRequest;
 use App\Service\NotebookService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -21,7 +22,7 @@ class NotebookController extends Controller
         return response()->json($this->service->index(), 200);
     }
 
-    public function store(NotebookRequest $request): JsonResponse
+    public function store(NotebookStoreRequest $request): JsonResponse
     {
         return response()->json($this->service->addNewNotebook($request->validationData()));
     }
@@ -29,6 +30,10 @@ class NotebookController extends Controller
     public function show(Request $request): JsonResponse
     {
         return response()->json($this->service->showNotebook($request->id));
+    }
+    public function update(NotebookUpdateRequest $request): JsonResponse
+    {
+        return response()->json($this->service->updateNotebook($request->id, $request->validationData()));
     }
 
 }

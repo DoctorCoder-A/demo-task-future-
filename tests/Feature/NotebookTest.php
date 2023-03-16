@@ -93,6 +93,25 @@ class NotebookTest extends TestCase
         $response->assertStatus(404);
     }
 
+    /** @test */
+    public function a_can_user_update_notebook()
+    {
+        Notebook::factory()->create();
+        $notebook = Notebook::first();
+        $user = $this->createUser();
+        $data = [
+            'email' => 'test@test.test',
+            'company' => 'test-company'
+        ];
+        $this->actingAs($user);
+        $response = $this->post(route('notebook.update', $notebook->id), $data);
+        $response->assertOk();
+
+        $this->assertEquals($data['email'], Notebook::first()->email);
+        $this->assertEquals($data['company'], Notebook::first()->company);
+
+    }
+
     private function createUser(): User
     {
         return User::factory()->create([

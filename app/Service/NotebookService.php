@@ -36,7 +36,6 @@ class NotebookService
 
     public function updateNotebook(int $id, $validated)
     {
-        Notebook::findOrFail($id)->update($validated);
-        return Notebook::findOrFail($id);
+        return Notebook::findOrFail($id)->update($validated);
     }
 }

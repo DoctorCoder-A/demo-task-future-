@@ -94,7 +94,7 @@ class NotebookTest extends TestCase
     }
 
     /** @test */
-    public function a_can_be_user_update_notebook()
+    public function a_can_be_auth_user_update_notebook()
     {
         Notebook::factory()->create();
         $notebook = Notebook::first();
@@ -109,6 +109,24 @@ class NotebookTest extends TestCase
 
         $this->assertEquals($data['email'], Notebook::first()->email);
         $this->assertEquals($data['company'], Notebook::first()->company);
+
+    }
+    /** @test */
+    public function a_can_be_non_auth_user_update_notebook()
+    {
+        Notebook::factory()->create();
+        $notebook = Notebook::first();
+        $user = $this->createUser();
+        $data = [
+            'email' => 'test@test.test',
+            'company' => 'test-company'
+        ];
+        $this
+            ->json('patch', route('notebook.update', $notebook->id), $data)
+            ->assertStatus(401);
+
+        $this->assertNotEquals($data['email'], Notebook::first()->email);
+        $this->assertNotEquals($data['company'], Notebook::first()->company);
 
     }
 

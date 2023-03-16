@@ -15,4 +15,13 @@ class NotebookService
         $notebooks = Notebook::paginate(5);
         return $notebooks->items();
     }
+
+    /**
+     * @param array $validated
+     * @return mixed
+     */
+    public function addNewNotebook(array $validated): Notebook
+    {
+        return Notebook::create($validated);
+    }
 }

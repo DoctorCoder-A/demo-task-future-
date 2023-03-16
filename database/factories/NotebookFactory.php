@@ -22,6 +22,7 @@ class NotebookFactory extends Factory
             'email' => $this->faker->email,
             'birthday' => $this->faker->date,
             'photo' => $this->faker->filePath(),
+            'phone' => $this->faker->phoneNumber,
         ];
     }
 }

@@ -29,7 +29,7 @@ Route::group(['prefix' => 'v1'], function () {
         Route::patch('notebook/{id}', [\App\Http\Controllers\NotebookController::class, 'update'])
             ->name('notebook.update');
 
-        Route::delete('notebook1/{id}', [\App\Http\Controllers\NotebookController::class, 'destroy'])
+        Route::delete('notebook/{id}', [\App\Http\Controllers\NotebookController::class, 'destroy'])
             ->name('notebook.destroy');
     });
 });

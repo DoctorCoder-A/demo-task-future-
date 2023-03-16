@@ -26,7 +26,7 @@ class NotebookStoreRequest extends FormRequest
             'company' => 'nullable|string|min:3|max:60',
             'email' => 'required|email',
             'birthday' => 'nullable|date',
-            'photo' => 'nullable|string',
+            'photo' => 'nullable|mimes:jpg,png|max:2048',
             'phone' => 'required|string|size:10',
         ];
     }

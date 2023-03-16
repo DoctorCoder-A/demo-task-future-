@@ -175,7 +175,7 @@ class NotebookTest extends TestCase
             'company' => 'test_company',
             'email' => 'test_email@email',
             'birthday' => '01/01/2001',
-            'photo' => 'test_photo',
+//            'photo' => 'test_photo',
             'phone' => '1111111111',//10
         ];
     }

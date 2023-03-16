@@ -10,4 +10,7 @@ class Notebook extends Model
     use HasFactory;
 
     protected $guarded = false;
+
+    const FILE_DISK = 'local';
+    const IMAGE_DIR = 'public';
 }

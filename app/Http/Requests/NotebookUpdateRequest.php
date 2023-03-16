@@ -26,7 +26,7 @@ class NotebookUpdateRequest extends FormRequest
             'company' => 'nullable|string|min:3|max:60',
             'email' => 'nullable|email',
             'birthday' => 'nullable|date',
-            'photo' => 'nullable|string',
+            'photo' => 'nullable|mimes:jpg,png|max:2048',
             'phone' => 'nullable|string|size:10',
         ];
     }

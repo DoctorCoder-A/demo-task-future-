@@ -3,7 +3,8 @@
 namespace App\Service;
 
 use App\Models\Notebook;
-use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Storage;
 
 class NotebookService
 {
@@ -22,6 +23,7 @@ class NotebookService
      */
     public function addNewNotebook(array $validated): Notebook
     {
+        $this->uploadImage(request()->file('photo'));
         return Notebook::create($validated);
     }
 
@@ -36,11 +38,32 @@ class NotebookService
 
     public function updateNotebook(int $id, $validated)
     {
+        $this->uploadImage(request()->file('photo'));
         return Notebook::findOrFail($id)->update($validated);
     }
 
     public function destroyNotebook(mixed $id): bool
     {
-        return Notebook::findOrFail($id)->delete();
+        $notebook = Notebook::findOrFail($id);
+        $this->deleteImage($notebook->photo);
+        return $notebook->delete();
+    }
+
+    private function uploadImage(?UploadedFile $file): ?string
+    {
+        if(is_null($file)){
+            return null;
+        }
+
+        $filename = time().$file->getClientOriginalName();
+
+        Storage::disk('public')->put('categories-imgs/' . $filename, $file);
+
+        return $filename;
+
+    }
+    private function deleteImage($path): void
+    {
+        Storage::disk(Notebook::FILE_DISK)->delete($path);
     }
 }

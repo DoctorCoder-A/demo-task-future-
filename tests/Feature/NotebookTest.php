@@ -75,6 +75,24 @@ class NotebookTest extends TestCase
         $this->assertEquals($data['email'], Notebook::first()->email);
     }
 
+    /** @test */
+    public function a_can_be_user_get_notebook_by_id()
+    {
+        Notebook::factory()->create();
+        $notebook = Notebook::first();
+        $response = $this->get(route('notebook.show', $notebook->id));
+        $response->assertOk();
+    }
+
+    /** @test */
+    public function not_found_notebook_by_id()
+    {
+        Notebook::factory()->create();
+        $notebook = Notebook::first();
+        $response = $this->get(route('notebook.show', 2));
+        $response->assertStatus(404);
+    }
+
     private function createUser(): User
     {
         return User::factory()->create([

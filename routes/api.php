@@ -15,6 +15,8 @@ use Illuminate\Support\Facades\Route;
 */
 Route::get('notebook', [\App\Http\Controllers\NotebookController::class, 'index'])
     ->name('notebook.index');
+Route::get('notebook/{id}', [\App\Http\Controllers\NotebookController::class, 'show'])
+    ->name('notebook.show');
 Route::group(['middleware' => 'auth'], function () {
     Route::post('notebook', [\App\Http\Controllers\NotebookController::class, 'store'])
         ->name('notebook.store');

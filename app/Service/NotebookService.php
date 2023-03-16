@@ -24,4 +24,13 @@ class NotebookService
     {
         return Notebook::create($validated);
     }
+
+    /**
+     * @param int $id
+     * @return Notebook
+     */
+    public function showNotebook(int $id): Notebook
+    {
+        return Notebook::findOrFail($id);
+    }
 }

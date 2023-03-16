@@ -13,20 +13,23 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "api" middleware group. Make something great!
 |
 */
-Route::get('notebook', [\App\Http\Controllers\NotebookController::class, 'index'])
-    ->name('notebook.index');
+Route::group(['prefix' => 'v1'], function () {
 
-Route::get('notebook/{id}', [\App\Http\Controllers\NotebookController::class, 'show'])
-    ->name('notebook.show');
+    Route::get('notebook', [\App\Http\Controllers\NotebookController::class, 'index'])
+        ->name('notebook.index');
 
-Route::group(['middleware' => 'auth'], function () {
+    Route::get('notebook/{id}', [\App\Http\Controllers\NotebookController::class, 'show'])
+        ->name('notebook.show');
 
-    Route::post('notebook', [\App\Http\Controllers\NotebookController::class, 'store'])
-        ->name('notebook.store');
+    Route::group(['middleware' => 'auth'], function () {
 
-    Route::patch('notebook/{id}', [\App\Http\Controllers\NotebookController::class, 'update'])
-        ->name('notebook.update');
+        Route::post('notebook', [\App\Http\Controllers\NotebookController::class, 'store'])
+            ->name('notebook.store');
 
-    Route::delete('notebook1/{id}', [\App\Http\Controllers\NotebookController::class, 'destroy'])
-        ->name('notebook.destroy');
+        Route::patch('notebook/{id}', [\App\Http\Controllers\NotebookController::class, 'update'])
+            ->name('notebook.update');
+
+        Route::delete('notebook1/{id}', [\App\Http\Controllers\NotebookController::class, 'destroy'])
+            ->name('notebook.destroy');
+    });
 });

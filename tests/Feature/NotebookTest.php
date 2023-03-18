@@ -30,7 +30,7 @@ class NotebookTest extends TestCase
         $this->actingAs($user);
         $response = $this->post(route('notebook.store'), $data);
 
-        $response->assertOk();
+        $response->assertStatus(201);
         $this->assertCount(1, Notebook::all());
         $this->assertEquals($data['email'], Notebook::first()->email);
     }
@@ -70,7 +70,7 @@ class NotebookTest extends TestCase
         $this->actingAs($user);
         $response = $this->post(route('notebook.store'), $data);
 
-        $response->assertOk();
+        $response->assertStatus(201);
         $this->assertCount(1, Notebook::all());
         $this->assertEquals($data['email'], Notebook::first()->email);
     }

@@ -1,0 +1,327 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Demo Task Notebooks",
+        "version": "3.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://localhost/api/v1/notebook/",
+            "description": "Main"
+        }
+    ],
+    "paths": {
+        "/": {
+            "get": {
+                "tags": [
+                    "Notebooks"
+                ],
+                "summary": "Get list of Notebook",
+                "description": "Returns list of Notebook",
+                "operationId": "indexNotebook",
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "The page number",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Notebooks"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Notebooks"
+                ],
+                "summary": "Insert a new Notebook",
+                "description": "Insert a new Notebook",
+                "operationId": "storeNotebook",
+                "requestBody": {
+                    "description": "Notebook to create",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "data": {
+                                        "$ref": "#/components/schemas/Notebook"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Notebook created",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/components/schemas/Notebook"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation exception"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                }
+            }
+        },
+        "/{id}": {
+            "get": {
+                "tags": [
+                    "Notebooks"
+                ],
+                "summary": "Show a Notebook from his Id",
+                "description": "Show a Notebook from his Id",
+                "operationId": "showNotebook",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/Notebook--id"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/components/schemas/Notebook"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Notebook not found"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Notebooks"
+                ],
+                "summary": "Delete a Notebook",
+                "description": "Delete a Notebook",
+                "operationId": "destroyNotebook",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/Notebook--id"
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No content"
+                    },
+                    "404": {
+                        "description": "Notebook not found"
+                    }
+                }
+            },
+            "patch": {
+                "tags": [
+                    "Notebooks"
+                ],
+                "summary": "Update an existing Notebook",
+                "description": "Update an existing Notebook",
+                "operationId": "updateNotebook",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/Notebook--id"
+                    }
+                ],
+                "requestBody": {
+                    "description": "Notebook to update",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "data": {
+                                        "$ref": "#/components/schemas/Notebook"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "204": {
+                        "description": "No content"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Notebook": {
+                "title": "Notebook",
+                "description": "Notebook model",
+                "required": [],
+                "properties": {
+                    "id": {
+                        "title": "id",
+                        "description": "id of Notebook",
+                        "type": "integer",
+                        "readOnly": "true",
+                        "example": "1"
+                    },
+                    "full_name": {
+                        "title": "full_name",
+                        "description": "full_name of Notebook",
+                        "type": "string",
+                        "example": "Notebook"
+                    },
+                    "company": {
+                        "title": "company",
+                        "description": "company of Notebook",
+                        "type": "string",
+                        "example": "Compay"
+                    },
+                    "email": {
+                        "title": "email",
+                        "description": "email of Notebook",
+                        "type": "string",
+                        "example": "email@email.email"
+                    },
+                    "birthday": {
+                        "title": "birthday",
+                        "description": "brithday of Notebook",
+                        "type": "string",
+                        "format": "date",
+                        "example": "12.12.12"
+                    },
+                    "photo": {
+                        "title": "photo",
+                        "description": "photo of Notebook",
+                        "type": "string",
+                        "example": "/dir/1.jpg"
+                    },
+                    "phone": {
+                        "title": "phone",
+                        "description": "phone of Notebook",
+                        "type": "string",
+                        "example": "9999999999"
+                    },
+                    "created_at": {
+                        "title": "created_at",
+                        "type": "dateTime",
+                        "readOnly": "true",
+                        "example": "2022-07-04T02:41:42.336Z"
+                    },
+                    "updated_at": {
+                        "title": "updated_at",
+                        "type": "dateTime",
+                        "readOnly": "true",
+                        "example": "2022-07-04T02:41:42.336Z"
+                    }
+                },
+                "type": "object"
+            },
+            "Notebooks": {
+                "title": "Notebooks",
+                "properties": {
+                    "data": {
+                        "title": "data",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Notebook"
+                        }
+                    }
+                },
+                "type": "object"
+            },
+            "NotebookStoreRequest": {
+                "title": "Notebook storring request",
+                "description": "Some simple request createa as notebook",
+                "properties": {
+                    "full_name": {
+                        "title": "full_name",
+                        "description": "Name of key for storring",
+                        "type": "string",
+                        "example": "random"
+                    },
+                    "company": {
+                        "title": "company",
+                        "description": "name company of for storring",
+                        "type": "string",
+                        "example": "random"
+                    },
+                    "email": {
+                        "title": "Email",
+                        "description": "Email for storring",
+                        "type": "string",
+                        "example": "random@random"
+                    },
+                    "birthday": {
+                        "title": "Birthday",
+                        "description": "Birthday for storring",
+                        "type": "string",
+                        "example": "12.12.2012"
+                    },
+                    "photo": {
+                        "title": "Photo",
+                        "description": "Photo for storring",
+                        "type": "string",
+                        "example": "file"
+                    },
+                    "phone": {
+                        "title": "Phone",
+                        "description": "Phone for storring",
+                        "type": "string",
+                        "example": "7888888888"
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "parameters": {
+            "Notebook--id": {
+                "name": "id",
+                "in": "path",
+                "description": "Id of Notebook",
+                "required": true,
+                "schema": {
+                    "type": "integer",
+                    "example": "1"
+                }
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Notebooks",
+            "description": "Crud notebook"
+        }
+    ]
+}

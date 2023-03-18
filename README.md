@@ -22,3 +22,6 @@
 1.4. POST /api/v1/notebook/<id>/
 1.5. DELETE /api/v1/notebook/<id>/
 ```
+
+
+swagger: http://localhost/api/documentation

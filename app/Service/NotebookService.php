@@ -38,8 +38,12 @@ class NotebookService
 
     public function updateNotebook(int $id, $validated)
     {
+        $notebook = Notebook::findOrFail($id)->update($validated);
+        if($validated['photo']){
+            $this->deleteImage($notebook->photo);
+        }
         $this->uploadImage(request()->file('photo'));
-        return Notebook::findOrFail($id)->update($validated);
+        return $notebook->update($validated);
     }
 
     public function destroyNotebook(mixed $id): bool
